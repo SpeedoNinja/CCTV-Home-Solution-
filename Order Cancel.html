@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Cancelled - CCTV Home System</title>
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts - Inter for consistency -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Define consistent color variables */
+        :root {
+            --primary-color: #007bff; /* Blue */
+            --secondary-color: #6c757d; /* Gray */
+            --accent-color: #28a745; /* Green */
+            --danger-color: #dc3545; /* Red for errors */
+            --text-color: #343a40; /* Dark Gray */
+            --light-text-color: #f8f9fa; /* Light White */
+            --bg-light: #f8f9fa; /* Off-white */
+            --bg-dark: #343a40; /* Dark gray */
+            --border-color: #dee2e6; /* Light border */
+            --card-bg: #ffffff; /* White */
+            --shadow: rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s ease-in-out;
+        }
+
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, var(--bg-light), #e6f3ff); /* Subtle gradient with theme colors */
+            display: flex;
+            flex-direction: column; /* Use column layout for body */
+            min-height: 100vh; /* Full viewport height */
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color var(--transition-speed);
+        }
+
+        a:hover {
+            color: #0056b3; /* Darker blue on hover */
+        }
+
+        /* Header Styles - Copied from previous theme */
+        header {
+            background-color: var(--bg-dark);
+            color: var(--light-text-color);
+            padding: 15px 0;
+            box-shadow: 0 2px 5px var(--shadow);
+            width: 100%; /* Ensure header spans full width */
+        }
+
+        header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center header content */
+            gap: 20px;
+        }
+
+        .logo-link img {
+            height: 50px; /* Adjust as needed */
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-color); /* Add a border for emphasis */
+            box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3); /* Subtle shadow */
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--light-text-color);
+            margin: 0; /* Remove default margin */
+        }
+
+        /* Content Area for the error message */
+        .main-content-area {
+            flex-grow: 1; /* Allows it to take up available space */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px; /* Add some padding around the content box */
+        }
+
+        .content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+            width: 90%;
+            max-width: 450px; /* Max-width similar to auth card */
+            padding: 30px; /* Increased padding */
+            animation: slideIn 1s ease-out forwards;
+            position: relative; /* For potential future absolute positioning of elements inside */
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px); /* Adjust initial position */
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .error-icon {
+            font-size: 4.5rem; /* Larger icon */
+            color: var(--danger-color); /* Themed danger color */
+            margin-bottom: 20px; /* More space below icon */
+            animation: shake 1s ease-in-out infinite;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-8px); } /* Stronger shake */
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-8px); }
+            100% { transform: translateX(0); }
+        }
+
+        .error-message h2 {
+            font-size: 2rem; /* Larger heading */
+            color: var(--primary-color); /* Use primary color for heading */
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .error-message p {
+            font-size: 1.05rem; /* Slightly larger text */
+            color: var(--secondary-color);
+            margin-bottom: 25px; /* More space before buttons */
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .retry-btn, .home-btn {
+            padding: 15px 30px; /* Larger padding */
+            font-size: 1.1rem;
+            border-radius: 8px; /* Consistent rounded corners */
+            text-decoration: none;
+            text-align: center;
+            width: 90%; /* Wider buttons */
+            max-width: 300px; /* Max width for buttons */
+            transition: background-color var(--transition-speed), transform 0.2s ease, box-shadow var(--transition-speed);
+            font-weight: 600;
+            outline: none; /* Remove default focus outline */
+            display: flex; /* Allow icon/text alignment */
+            align-items: center;
+            justify-content: center;
+            gap: 10px; /* Space between icon and text */
+        }
+
+        .retry-btn {
+            background: var(--danger-color); /* Themed danger color */
+            color: var(--light-text-color);
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.25);
+        }
+
+        .retry-btn:hover {
+            background: #c82333; /* Darker red */
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(220, 53, 69, 0.4);
+        }
+
+        .home-btn {
+            background: var(--primary-color); /* Themed primary color */
+            color: var(--light-text-color);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25);
+        }
+
+        .home-btn:hover {
+            background: #0056b3; /* Darker blue */
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+        }
+
+        .retry-btn:active, .home-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Footer Styles - Copied from previous theme */
+        footer {
+            background-color: var(--bg-dark);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 20px 0;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            width: 100%; /* Ensure footer spans full width */
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        footer a:hover {
+            color: var(--light-text-color);
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            margin-top: 10px;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Space between icons */
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--light-text-color);
+            border-radius: 50%;
+            transition: background-color var(--transition-speed), transform 0.2s ease, box-shadow var(--transition-speed);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .logo-link img {
+                height: 40px;
+                width: 40px;
+            }
+
+            .content {
+                width: 95%;
+                padding: 25px;
+            }
+
+            .error-icon {
+                font-size: 3.5rem;
+            }
+
+            .error-message h2 {
+                font-size: 1.6rem;
+            }
+
+            .error-message p {
+                font-size: 0.95rem;
+            }
+
+            .retry-btn, .home-btn {
+                width: 100%;
+                font-size: 1rem;
+                padding: 12px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.3rem;
+            }
+
+            .logo-link img {
+                height: 35px;
+                width: 35px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .error-icon {
+                font-size: 3rem;
+            }
+
+            .error-message h2 {
+                font-size: 1.4rem;
+            }
+
+            .error-message p {
+                font-size: 0.9rem;
+            }
+
+            .retry-btn, .home-btn {
+                padding: 10px 20px;
+            }
+
+            footer {
+                font-size: 0.8rem;
+            }
+
+            .social-icons {
+                font-size: 1.2rem;
+                gap: 15px;
+            }
+            .social-icons a {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo-link">
+                <img src="Photo/Logo.jpeg" alt="CCTV Home System Logo" onerror="this.onerror=null; this.src='https://placehold.co/50x50/343a40/f8f9fa?text=Logo';" />
+            </a>
+            <h1>CCTV Home System</h1>
+        </div>
+    </header>
+
+    <div class="main-content-area">
+        <div class="content">
+            <div class="error-icon">
+                <i class="fas fa-times-circle"></i>
+            </div>
+            <div class="error-message">
+                <h2>Order Cancelled</h2>
+                <p>We regret to inform you that your order has been cancelled. Please contact support if you have any questions.</p>
+            </div>
+
+            <div class="action-buttons">
+                <a href="Cart.html" class="retry-btn">
+                    <i class="fas fa-redo"></i> Try Again
+                </a>
+                <a href="index.html" class="home-btn">
+                    <i class="fas fa-home"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 CCTV Home System. All rights reserved. <br> <a href="(07) About Us.html">Privacy Policy</a> | <a href="(06) Terms and Conditions.html">Terms & Conditions</a></p>
+        
+        <div class="social-icons">
+            <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me" target="_blank" aria-label="Whatsapp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com=" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+</body>
+</html>

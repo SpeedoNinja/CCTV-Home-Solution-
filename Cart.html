@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CCTVHOMESYSTEM.COM - Your Cart</title>
+    <link rel="stylesheet" href="CSS%20Codes/Cart.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="logo">
+          <a href="index.html" class="logo-link">
+            <img src="Photo/Logo.jpeg" alt="CCTV Home System Logo" />
+          </a>
+          <h1>CCTV Home System</h1>
+        </div>
+      </div>
+    </header>
+
+    <nav>
+      <div class="container">
+        <ul>
+      <li><a href="index.html">Home</a></li>
+        <li><a href="Product.html">Products</a></li>
+        <li><a href="About us.html">About Us</a></li>
+        <li><a href="Solution.html">Solutions</a></li>
+        <li><a href="Cart.html">Cart</a></li>
+        <li><a href="Contact us.html">Contact Us</a></li>
+        </ul>
+        <div class="search-icon">
+          <i class="fas fa-search"></i>
+        </div>
+        <div class="user-auth-container">
+          <div class="login-signup-links" id="loginSignupLinks">
+            <a href="Login page.html" class="login-link">Login</a> /
+            <a href="Login page.html" class="signup-link">Signup</a>
+          </div>
+          <div
+            class="user-icon"
+            id="userProfileIcon"
+            title="User Profile"
+            style="display: none"
+          >
+            <i class="fas fa-user-circle"></i>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="cart-section">
+      <div class="container">
+        <h2 class="cart-title">
+          <i class="fas fa-shopping-cart"></i> Your Shopping Cart
+        </h2>
+        <p class="user-id-display" id="userIdDisplay">User ID: Initializing...</p>
+
+        <div id="loadingIndicator" class="loading-indicator">
+          <div class="spinner"></div>
+          <p>Loading your cart items...</p>
+        </div>
+
+        <div id="cartContent" style="display: none">
+          <div class="cart-items-container" id="cartItemsContainer">
+            <p class="empty-cart-message" id="emptyCartMessage">
+              Your cart is empty. Start adding some security products!
+            </p>
+          </div>
+
+          <div class="cart-summary">
+            <h3>Order Summary</h3>
+            <div class="summary-line">
+              <span>Subtotal:</span>
+              <span id="subtotalPrice">$0.00</span>
+            </div>
+            <div class="summary-line discount-line">
+              <span>Discount (<span id="discountPercentage">0%</span>):</span>
+              <span id="discountPrice">-$0.00</span>
+            </div>
+            <div class="summary-line delivery-line">
+              <span>Delivery Fee:</span>
+              <span id="deliveryPrice">$0.00</span>
+            </div>
+            <div class="summary-line total-line">
+              <span>Total:</span>
+              <span id="totalPrice">$0.00</span>
+            </div>
+            <button class="proceed-to-payment-btn" id="proceedToPaymentBtn">
+              <i class="fas fa-credit-card"></i> Proceed to Payment
+            </button>
+            <button class="add-demo-item-btn" id="addDemoItemBtn">
+              <i class="fas fa-plus"></i> Add Demo Item
+            </button>
+          </div>
+        </div>
+        <div id="messageBox" class="message-box" style="display: none">
+          <div class="message-content">
+            <p id="messageText"></p>
+            <button onclick="document.getElementById('messageBox').style.display='none'">OK</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="quick-links">
+      <div class="container">
+        <div class="link-category">
+          <h3>Products</h3>
+         <ul>
+            <li><a href="Product.html">Network Camera</a></li>
+            <li><a href="Product.html">IP Camera</a></li>
+            <li><a href="Product.html">WiFi Camera</a></li>
+            <li>
+              <a href="Product.html">Analog HD Camera</a>
+            </li>
+            <li>
+              <a href="Product.html"
+                >Digital Video Recorder (DVR)</a
+              >
+            </li>
+            <li><a href="Product.html">Online Products</a></li>
+          </ul>
+        </div>
+        <div class="link-category">
+          <h3>Other Links</h3>
+            <ul>
+            <li><a href="Contact us.html">Contact Us</a></li>
+            <li><a href="About us.html">About Us</a></li>
+            <li><a href="Solution.html">Support</a></li>
+            <li><a href="Contact us.html">Live Chat</a></li>
+            <li><a href="whatsapp.html">Whatsapp</a></li>
+            <li><a href="Terms and Conditions.html">Terms & Conditions</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="social-media">
+      <a href="#" aria-label="Whatsapp"><i class="fab fa-whatsapp"></i></a>
+      <a href="mailto:cctvhomesystem6@gmail.com" aria-label="Email"
+        ><i class="fas fa-envelope"></i
+      ></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="tel:+918770146887" aria-label="Call"
+        ><i class="fas fa-phone"></i
+      ></a>
+    </section>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import {
+        getAuth,
+        signInAnonymously,
+        signInWithCustomToken,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        collection,
+        onSnapshot,
+        updateDoc,
+        deleteDoc,
+        addDoc,
+        getDoc,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+      const firebaseAppId =
+        typeof __app_id !== "undefined" ? __app_id : "your-default-app-id-here";
+      const firebaseConfig = JSON.parse(
+        typeof __firebase_config !== "undefined" ? __firebase_config : "{}"
+      );
+      const initialUserAuthToken =
+        typeof __initial_auth_token !== "undefined" ? __initial_auth_token : null;
+
+      let firebaseAppInstance;
+      let firestoreDb;
+      let firebaseAuthInstance;
+
+      let currentLoggedInUserId = null;
+      let cartDataUnsubscribeListener = null;
+
+      const loadingSpinnerElem = document.getElementById("loadingIndicator");
+      const cartMainContentElem = document.getElementById("cartContent");
+      const cartItemsDisplayContainer = document.getElementById("cartItemsContainer");
+      const emptyCartMessageElem = document.getElementById("emptyCartMessage");
+      const subtotalPriceDisplay = document.getElementById("subtotalPrice");
+      const discountPercentageDisplay = document.getElementById("discountPercentage");
+      const discountPriceDisplay = document.getElementById("discountPrice");
+      const deliveryPriceDisplay = document.getElementById("deliveryPrice");
+      const totalPriceDisplay = document.getElementById("totalPrice");
+      const checkoutButton = document.getElementById("proceedToPaymentBtn");
+      const addDummyItemButton = document.getElementById("addDemoItemBtn");
+      const userIdTextDisplay = document.getElementById("userIdDisplay");
+      const feedbackMessageBox = document.getElementById("messageBox");
+      const feedbackMessageText = document.getElementById("messageText");
+
+      function showUserMessage(message) {
+        feedbackMessageText.textContent = message;
+        feedbackMessageBox.style.display = "flex";
+      }
+
+      function updateNavigationAuthUI() {
+        const loginSignupArea = document.getElementById('loginSignupLinks');
+        const userProfileIconArea = document.getElementById('userProfileIcon');
+
+        if (firebaseAuthInstance && firebaseAuthInstance.currentUser) {
+            if (loginSignupArea) loginSignupArea.style.display = 'none';
+            if (userProfileIconArea) userProfileIconArea.style.display = 'block';
+        } else {
+            if (loginSignupArea) loginSignupArea.style.display = 'block';
+            if (userProfileIconArea) userProfileIconArea.style.display = 'none';
+        }
+      }
+
+      async function initializeFirebaseServices() {
+        try {
+          if (!firebaseAppInstance) {
+            firebaseAppInstance = initializeApp(firebaseConfig);
+            firestoreDb = getFirestore(firebaseAppInstance);
+            firebaseAuthInstance = getAuth(firebaseAppInstance);
+          }
+
+          onAuthStateChanged(firebaseAuthInstance, async (user) => {
+            if (user) {
+              currentLoggedInUserId = user.uid;
+              userIdTextDisplay.textContent = `User ID: ${currentLoggedInUserId}`;
+              if (cartDataUnsubscribeListener) {
+                cartDataUnsubscribeListener();
+              }
+              setupCartRealtimeListener(currentLoggedInUserId);
+            } else {
+              try {
+                if (initialUserAuthToken) {
+                  await signInWithCustomToken(firebaseAuthInstance, initialUserAuthToken);
+                } else {
+                  await signInAnonymously(firebaseAuthInstance);
+                }
+                currentLoggedInUserId = firebaseAuthInstance.currentUser?.uid || 'N/A';
+                userIdTextDisplay.textContent = `User ID: ${currentLoggedInUserId} (Anonymous/New Session)`;
+                if (cartDataUnsubscribeListener) {
+                  cartDataUnsubscribeListener();
+                }
+                setupCartRealtimeListener(currentLoggedInUserId);
+              } catch (authError) {
+                console.error("Firebase Auth Error:", authError.message);
+                showUserMessage(`Authentication failed: ${authError.message}. Please try again.`);
+                loadingSpinnerElem.style.display = 'none';
+                cartMainContentElem.style.display = 'block';
+              }
+            }
+            updateNavigationAuthUI();
+          });
+        } catch (initError) {
+          console.error("Critical Firebase Initialization Error:", initError.message);
+          showUserMessage("Failed to initialize shopping cart. Please check your internet connection.");
+          loadingSpinnerElem.style.display = 'none';
+          cartMainContentElem.style.display = 'block';
+        }
+      }
+
+      function setupCartRealtimeListener(userId) {
+        if (!firestoreDb || !userId) {
+          console.error("Firestore DB or User ID is missing, cannot set up cart listener.");
+          showUserMessage("Cart data cannot be loaded. Missing user information.");
+          return;
+        }
+
+        const userCartCollectionRef = collection(firestoreDb, `artifacts/${firebaseAppId}/users/${userId}/cartItems`);
+
+        cartDataUnsubscribeListener = onSnapshot(userCartCollectionRef, (snapshot) => {
+          const fetchedCartItems = [];
+          snapshot.forEach((docSnap) => {
+            fetchedCartItems.push({ id: docSnap.id, ...docSnap.data() });
+          });
+
+          renderCartItems(fetchedCartItems);
+          calculateAndDisplayCartTotals(fetchedCartItems);
+
+          loadingSpinnerElem.style.display = "none";
+          cartMainContentElem.style.display = "block";
+
+        }, (firestoreError) => {
+          console.error("Error fetching real-time cart updates:", firestoreError.message);
+          showUserMessage("Error updating your cart. Please try refreshing the page.");
+          loadingSpinnerElem.style.display = "none";
+          cartMainContentElem.style.display = "block";
+        });
+      }
+
+      function renderCartItems(items) {
+        cartItemsDisplayContainer.innerHTML = "";
+        if (items.length === 0) {
+          emptyCartMessageElem.style.display = "block";
+        } else {
+          emptyCartMessageElem.style.display = "none";
+          items.forEach((item) => {
+            const cartItemHtml = `
+              <div class="cart-item" data-id="${item.id}">
+                  <img src="${item.image || 'https://placehold.co/100x100?text=CCTV'}"
+                       alt="${item.name || 'Cart Item'}"
+                       onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=CCTV';" />
+                  <div class="item-details">
+                      <h4>${item.name || 'Unnamed Item'}</h4>
+                      <p>Price: $${(item.price || 0).toFixed(2)}</p>
+                  </div>
+                  <div class="item-quantity-controls">
+                      <button class="quantity-btn decrease-qty" data-id="${item.id}">-</button>
+                      <span class="item-qty">${item.quantity || 0}</span>
+                      <button class="quantity-btn increase-qty" data-id="${item.id}">+</button>
+                  </div>
+                  <div class="item-subtotal">
+                      $${((item.price || 0) * (item.quantity || 0)).toFixed(2)}
+                  </div>
+                  <button class="remove-item-btn" data-id="${item.id}">
+                      <i class="fas fa-trash-alt"></i> Remove
+                  </button>
+              </div>
+            `;
+            cartItemsDisplayContainer.insertAdjacentHTML('beforeend', cartItemHtml);
+          });
+
+          addEventListenersToCartItems();
+        }
+      }
+
+      function addEventListenersToCartItems() {
+        document.querySelectorAll(".decrease-qty").forEach((button) => {
+          button.addEventListener("click", (e) =>
+            updateItemQuantityInDb(e.target.dataset.id, -1)
+          );
+        });
+        document.querySelectorAll(".increase-qty").forEach((button) => {
+          button.addEventListener("click", (e) =>
+            updateItemQuantityInDb(e.target.dataset.id, 1)
+          );
+        });
+        document.querySelectorAll(".remove-item-btn").forEach((button) => {
+          button.addEventListener("click", (e) =>
+            removeItemFromCart(e.target.closest("button").dataset.id)
+          );
+        });
+      }
+
+      function calculateAndDisplayCartTotals(items) {
+        let subtotal = 0;
+        items.forEach((item) => {
+          subtotal += (item.price || 0) * (item.quantity || 0);
+        });
+
+        const fixedDiscountPercentage = 10;
+        const calculatedDiscountAmount = subtotal * (fixedDiscountPercentage / 100);
+
+        const standardDeliveryFee = 15;
+        const freeDeliveryThreshold = 200;
+        const finalDeliveryFee = subtotal >= freeDeliveryThreshold ? 0 : standardDeliveryFee;
+
+        const finalTotal = subtotal - calculatedDiscountAmount + finalDeliveryFee;
+
+        subtotalPriceDisplay.textContent = `$${subtotal.toFixed(2)}`;
+        discountPercentageDisplay.textContent = `${fixedDiscountPercentage}%`;
+        discountPriceDisplay.textContent = `-$${calculatedDiscountAmount.toFixed(2)}`;
+        deliveryPriceDisplay.textContent = `$${finalDeliveryFee.toFixed(2)}`;
+        totalPriceDisplay.textContent = `$${finalTotal.toFixed(2)}`;
+
+        checkoutButton.disabled = items.length === 0;
+        if (items.length === 0) {
+          checkoutButton.style.opacity = '0.6';
+          checkoutButton.style.cursor = 'not-allowed';
+        } else {
+          checkoutButton.style.opacity = '1';
+          checkoutButton.style.cursor = 'pointer';
+        }
+      }
+
+      async function updateItemQuantityInDb(itemId, change) {
+        if (!currentLoggedInUserId || !firestoreDb) {
+          showUserMessage("Cannot update cart. User not authenticated or database not ready.");
+          return;
+        }
+        const itemDocumentRef = doc(firestoreDb, `artifacts/${firebaseAppId}/users/${currentLoggedInUserId}/cartItems`, itemId);
+
+        try {
+          const itemSnapshot = await getDoc(itemDocumentRef);
+          if (itemSnapshot.exists()) {
+            let currentQuantity = itemSnapshot.data().quantity;
+            let newCalculatedQuantity = currentQuantity + change;
+
+            if (newCalculatedQuantity < 1) {
+              await deleteDoc(itemDocumentRef);
+              showUserMessage(`'${itemSnapshot.data().name}' removed from your cart.`);
+            } else {
+              await updateDoc(itemDocumentRef, { quantity: newCalculatedQuantity });
+            }
+          } else {
+            showUserMessage("This item is no longer in your cart.");
+          }
+        } catch (error) {
+          console.error("Error updating item quantity in Firestore:", error);
+          showUserMessage("Failed to update item quantity. Please try again.");
+        }
+      }
+
+      async function removeItemFromCart(itemId) {
+        if (!currentLoggedInUserId || !firestoreDb) {
+          showUserMessage("Cannot remove item. User not authenticated or database not ready.");
+          return;
+        }
+        const itemDocumentRef = doc(firestoreDb, `artifacts/${firebaseAppId}/users/${currentLoggedInUserId}/cartItems`, itemId);
+
+        try {
+          await deleteDoc(itemDocumentRef);
+          showUserMessage("Item removed from your cart.");
+        } catch (error) {
+          console.error("Error removing item from Firestore:", error);
+          showUserMessage("Failed to remove item. Please try again.");
+        }
+      }
+
+      checkoutButton.addEventListener("click", () => {
+        if (parseFloat(totalPriceDisplay.textContent.replace('$', '')) <= 0 && currentLoggedInUserId) {
+            showUserMessage("Your cart is empty! Add items before proceeding to payment.");
+            return;
+        }
+        showUserMessage(
+          "Proceeding to checkout! (This is a simulation. Payment integration comes next.)"
+        );
+      });
+
+      addDummyItemButton.addEventListener("click", async () => {
+        if (!currentLoggedInUserId || !firestoreDb) {
+          showUserMessage("Cannot add demo item. Authentication or database not initialized.");
+          return;
+        }
+
+        const userCartCollectionRef = collection(firestoreDb, `artifacts/${firebaseAppId}/users/${currentLoggedInUserId}/cartItems`);
+        const demoProduct = {
+          name: "Smart Wi-Fi Camera (Demo)",
+          price: 79.99,
+          quantity: 1,
+          image: "Photo/CCTV.jpg",
+        };
+
+        try {
+          const existingCartItemsSnapshot = await getDocs(userCartCollectionRef);
+          let itemFoundAndUpdated = false;
+
+          for (const docSnap of existingCartItemsSnapshot.docs) {
+            if (docSnap.data().name === demoProduct.name) {
+              const currentQty = docSnap.data().quantity;
+              await updateDoc(doc(firestoreDb, `artifacts/${firebaseAppId}/users/${currentLoggedInUserId}/cartItems`, docSnap.id), { quantity: currentQty + 1 });
+              itemFoundAndUpdated = true;
+              showUserMessage(`Added another '${demoProduct.name}' to your cart!`);
+              break;
+            }
+          }
+
+          if (!itemFoundAndUpdated) {
+            await addDoc(userCartCollectionRef, demoProduct);
+            showUserMessage(`'${demoProduct.name}' added to your cart!`);
+          }
+        } catch (error) {
+          console.error("Error adding/updating demo item in Firestore:", error);
+          showUserMessage("Failed to add demo item. Please try again.");
+        }
+      });
+
+      window.addEventListener("load", initializeFirebaseServices);
+    </script>
+  </body>
+</html>

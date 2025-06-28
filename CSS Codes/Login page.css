@@ -1,0 +1,572 @@
+/* Import Google Fonts - Inter for a modern look */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Base Styles */
+:root {
+    --primary-color: #007bff; /* Blue */
+    --secondary-color: #6c757d; /* Gray */
+    --accent-color: #28a745; /* Green */
+    --text-color: #343a40; /* Dark Gray */
+    --light-text-color: #f8f9fa; /* Light White */
+    --bg-light: #f8f9fa; /* Off-white */
+    --bg-dark: #343a40; /* Dark gray */
+    --border-color: #dee2e6; /* Light border */
+    --card-bg: #ffffff; /* White */
+    --shadow: rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.3s ease-in-out;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-light);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+a:hover {
+    color: #0056b3; /* Darker blue on hover */
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Header */
+header {
+    background-color: var(--bg-dark);
+    color: var(--light-text-color);
+    padding: 15px 0;
+    box-shadow: 0 2px 5px var(--shadow);
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Adjusted for better spacing */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-link img {
+    height: 50px; /* Adjust as needed */
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--light-text-color);
+}
+
+/* Navigation */
+nav {
+    background-color: #ffffff;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px var(--shadow);
+    border-bottom: 1px solid var(--border-color);
+}
+
+nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+nav ul {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap; /* Allow wrapping */
+}
+
+nav ul li a {
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 5px 0;
+    position: relative;
+    transition: all var(--transition-speed);
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width var(--transition-speed);
+}
+
+nav ul li a:hover::after,
+nav ul li a.active::after {
+    width: 100%;
+}
+
+.search-icon,
+.user-auth-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 5px; /* Adjust for wrap on smaller screens */
+}
+
+.search-icon i {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    cursor: pointer;
+    transition: color var(--transition-speed);
+}
+
+.search-icon i:hover {
+    color: var(--primary-color);
+}
+
+.login-signup-links a {
+    font-weight: 500;
+    color: var(--text-color);
+    padding: 5px 8px;
+    border-radius: 5px;
+    transition: background-color var(--transition-speed);
+}
+
+.login-signup-links a:hover {
+    background-color: var(--bg-light);
+}
+
+.login-signup-links .active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Auth Section */
+.auth-section {
+    flex-grow: 1; /* Allows it to take up available space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 15px;
+    background: linear-gradient(to right, #e0f2f7, #d4edda); /* Subtle gradient background */
+}
+
+.auth-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+    text-align: center;
+    animation: fadeIn 0.8s ease-out; /* Initial fade in for the card */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-toggle-buttons {
+    display: flex;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--bg-light);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.auth-toggle-buttons button {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    background-color: transparent;
+    color: var(--secondary-color);
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    outline: none; /* Remove default focus outline */
+}
+
+.auth-toggle-buttons button.active {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.auth-form {
+    display: none; /* Hidden by default, shown via JS */
+    text-align: left;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+.auth-form h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.auth-form p {
+    color: var(--secondary-color);
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px 12px 45px; /* Left padding for icon */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--text-color);
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+    outline: none; /* Remove default focus outline */
+}
+
+.input-group input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%; /* Perfect vertical centering */
+    transform: translateY(-50%);
+    color: var(--secondary-color);
+    font-size: 1.1rem; /* Slightly larger icon */
+    pointer-events: none; /* Ensure icon doesn't block input interaction */
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+}
+
+.remember-me {
+    display: flex; /* Align checkbox and text */
+    align-items: center;
+    cursor: pointer;
+}
+
+.remember-me input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: var(--primary-color); /* Style the checkbox */
+    transform: scale(1.1); /* Slightly larger checkbox */
+}
+
+.forgot-password {
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+.forgot-password:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-speed), transform 0.2s ease, box-shadow var(--transition-speed);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2); /* Slightly increased initial shadow */
+    outline: none; /* Remove default focus outline */
+}
+
+.auth-button:hover {
+    background-color: #0056b3; /* Darker blue */
+    transform: translateY(-3px); /* More noticeable lift */
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4); /* More pronounced shadow on hover */
+}
+
+.or-separator {
+    text-align: center;
+    margin: 25px 0;
+    position: relative;
+    color: var(--secondary-color);
+}
+
+.or-separator::before,
+.or-separator::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: var(--border-color);
+}
+
+.or-separator::before {
+    left: 0;
+}
+
+.or-separator::after {
+    right: 0;
+}
+
+.or-separator span {
+    background-color: var(--card-bg);
+    padding: 0 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.social-btn {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all var(--transition-speed);
+    outline: none; /* Remove default focus outline */
+}
+
+.social-btn.google {
+    background-color: #db4437; /* Google Red */
+    color: var(--light-text-color);
+    border-color: #db4437;
+    box-shadow: 0 2px 8px rgba(219, 68, 55, 0.2);
+}
+
+.social-btn.google:hover {
+    background-color: #c0382f;
+    box-shadow: 0 6px 15px rgba(219, 68, 55, 0.3);
+    transform: translateY(-2px);
+}
+
+.social-btn.facebook {
+    background-color: #4267b2; /* Facebook Blue */
+    color: var(--light-text-color);
+    border-color: #4267b2;
+    box-shadow: 0 2px 8px rgba(66, 103, 178, 0.2);
+}
+
+.social-btn.facebook:hover {
+    background-color: #3b5ba5;
+    box-shadow: 0 6px 15px rgba(66, 103, 178, 0.3);
+    transform: translateY(-2px);
+}
+
+.social-btn i {
+    font-size: 1.2rem; /* Slightly larger social icons */
+}
+
+.troubleshoot-contact {
+    margin-top: 30px;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.troubleshoot-contact a {
+    font-weight: 500;
+}
+
+
+/* Quick Links Section */
+.quick-links {
+    background-color: var(--bg-dark);
+    color: var(--light-text-color);
+    padding: 40px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.quick-links .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.link-category h3 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.link-category ul li {
+    margin-bottom: 10px;
+}
+
+.link-category ul li a {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    transition: color var(--transition-speed);
+}
+
+.link-category ul li a:hover {
+    color: var(--light-text-color);
+    text-decoration: underline;
+}
+
+/* Social Media Section */
+.social-media {
+    background-color: var(--bg-dark);
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.social-media a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--light-text-color);
+    border-radius: 50%;
+    margin: 0 10px;
+    font-size: 1.4rem;
+    transition: background-color var(--transition-speed), transform 0.2s ease;
+}
+
+.social-media a:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 12px rgba(0, 123, 255, 0.3);
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    header .container,
+    nav .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul {
+        margin-top: 15px;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .search-icon,
+    .user-auth-container {
+        margin-top: 20px;
+    }
+
+    .quick-links .container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .link-category h3 {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 20px;
+    }
+
+    .auth-form h2 {
+        font-size: 1.7rem;
+    }
+
+    .auth-toggle-buttons button {
+        padding: 10px 15px;
+        font-size: 1rem;
+    }
+
+    .input-group input {
+        padding: 10px 15px 10px 40px;
+    }
+
+    .input-icon {
+        left: 12px;
+        font-size: 1rem; /* Adjust for smaller screens */
+    }
+
+    .form-options {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .social-media a {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+}
+
+/* Animations for form transitions (as per your JS) */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
