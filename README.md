@@ -8,7 +8,7 @@ Is a fully functional online platform built using HTML, CSS, and JavaScript. The
 
 This project is designed to give users a modern and engaging way to browse and purchase security products with intuitive navigation and dynamic UI interactions.
 
-![Image](https://github.com/user-attachments/assets/659b7bd3-e73b-406c-8ca9-2d2ad155f674)
+![Image](https://github.com/user-attachments/assets/d70d99d8-b7dc-457e-9c8a-9e7176fdbbd6)
 
 🔥 Key Features  
 🧾 Interactive Product Pages: Multiple product pages showcasing different CCTV and security devices with detailed information.
